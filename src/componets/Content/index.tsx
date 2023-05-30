@@ -1,30 +1,84 @@
 import style from "./index.module.css";
 import Plus from "../../assets/plus.svg";
 import { NoContent } from "../NoContent";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TodoList } from "../TodoList";
 import { Task } from "../../model/Task";
+import useToDoContext from "../../hooks/todoContext";
+import { v4 as uuidv4 } from "uuid";
+import { api } from "../../api/api";
+
+
 export const Content = () => {
-  const [taskList, setTaskList] = useState<Task[]>([
-    {
-      id: 1,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum interdum imperdiet.",
+  
+  const { taskListState, setTaskListState } = useToDoContext();
+  const [description, setDescription] = useState<string>("");
+
+
+  const addTaskOnList = () => {
+    const newTask = {
+      id: uuidv4(),
+      description,
       isDone: false,
-    },
-    {
-      id: 2,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum interdum imperdiet.",
-      isDone: false,
-    },
-    {
-      id: 3,
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec condimentum interdum imperdiet.",
-      isDone: true,
-    },
-  ]);
+    };
+
+    api
+      .post("task", newTask)
+      .then(() => {
+        setTaskListState((currentValue) => [...currentValue, newTask]);
+      })
+      .finally(() => {
+        setDescription("");
+      });
+  };
+
+  const removeTaskOnDelete = (id: string) => {
+    setTaskListState((currentValue) =>
+      currentValue.filter((task) => task.id !== id)
+    );
+
+    api.delete("task/" + id).then(() => {
+      setTaskListState((currentValue) =>
+        currentValue.filter((task) => task.id !== id)
+      );
+    });
+  };
+
+  const changeStatusCheckBox = (id: string) => {
+    const task = taskListState.find((task) => task.id === id);
+
+    if (task) {
+      api.patch("task/"+ task.id, {
+        isDone: !task.isDone
+      })
+    }
+
+    const elements = taskListState.map((task) => {
+      if (task.id == id) {
+        return {
+          ...task,
+          isDone: !task.isDone,
+        };
+      }
+
+      return task;
+    });
+
+    setTaskListState(elements);
+  };
+
+  useEffect(() => {
+    api
+      .get("task")
+      .then((response) => {
+        console.log(response)
+        return response.data;
+      })
+      .then((data) => {
+        setTaskListState(data);
+      });
+  }, []);
+
 
   return (
     <section className={style.section_container}>
@@ -32,11 +86,13 @@ export const Content = () => {
         <article className={style.input_container}>
           <input
             className={style.input}
+            value={description}
+            onChange={e => setDescription(e.target.value)}
             type="text"
             placeholder="Adicione uma nova tarefa"
           ></input>
           <article>
-            <button className={style.button}>
+            <button onClick={addTaskOnList} className={style.button}>
               Criar
               <img src={Plus} alt="Logo de mais"></img>
             </button>
@@ -53,7 +109,7 @@ export const Content = () => {
           </article>
         </article>
 
-        {!taskList.length ? <NoContent /> : <TodoList list={taskList/>}
+        {!taskListState.length ? <NoContent /> : <TodoList list={taskListState} onDelete={removeTaskOnDelete} changeStatusCheckBox={changeStatusCheckBox}/>}
       </main>
     </section>
   );

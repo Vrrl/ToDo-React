@@ -4,9 +4,11 @@ import { Task } from "../../model/Task";
 
 interface TodoListProps{
   list: Task[]
+  onDelete: (id: string) => void
+  changeStatusCheckBox: (id: string) => void
 }
 
-export const TodoList = ({list}: TodoListProps) => {
+export const TodoList = ({list, onDelete, changeStatusCheckBox}: TodoListProps) => {
   return (
     <section>
       {list.map((task) => (
@@ -15,9 +17,10 @@ export const TodoList = ({list}: TodoListProps) => {
             type="checkbox"
             id={task.id} 
             defaultChecked={task.isDone} 
+            onChange={() => changeStatusCheckBox(task.id)}
           />
-          <p className={styles.text}>{task.description}</p>
-          <img src={Trash} alt="icone de lixeira" />
+          <p className={task.isDone ? styles.text_scratched : styles.text}>{task.description}</p>
+          <img src={Trash} className={styles.trash} alt="icone de lixeira" onClick={() => onDelete(task.id)} />
         </article>
       ))
 
