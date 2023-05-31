@@ -1,19 +1,49 @@
 {
   "task": [
     {
-      "id": "7336c86e-9afa-4187-8e0b-a4bdcccdc0f5",
-      "description": "awdawdawd",
+      "id": "9681ca4b-9458-4928-8fde-cfd0c61eaf59",
+      "description": "adawdaw",
       "isDone": true
     },
     {
-      "id": "11b899d4-5e29-495d-a927-c633371e2759",
+      "id": "a81e6211-20e2-431a-82df-ebaaeab33969",
       "description": "awdawdawdawd",
+      "isDone": false
+    },
+    {
+      "id": "1d25f043-829d-48f3-8704-2b97d9c26b9d",
+      "description": "Fazer as compras",
+      "isDone": false
+    },
+    {
+      "id": "b968cfd0-0d63-4663-893f-f0a5e31a71c6",
+      "description": "Estudar React",
       "isDone": true
     },
     {
-      "id": "b49f0e67-0539-4e9c-b757-2a4086029ddd",
-      "description": "awdawdawd",
+      "id": "f82a2bcd-4075-4cfc-a42e-1b5014f4a294",
+      "description": "Falar que Vue é melhor que React",
       "isDone": true
+    },
+    {
+      "id": "e2705e9d-3620-42fb-a8a1-1432ff35d4f4",
+      "description": "Subistituir Front-End por Back-End",
+      "isDone": false
+    },
+    {
+      "id": "e68cf737-bcd2-4fcc-92e6-87e36bf2bd25",
+      "description": "Descançar",
+      "isDone": false
+    },
+    {
+      "id": "518b94db-c703-42da-97a3-67d4a3f62ec9",
+      "description": "ir dormir",
+      "isDone": false
+    },
+    {
+      "id": "6b03997b-5ab8-4b74-83ee-83e987328d70",
+      "description": "Minha nova Task",
+      "isDone": false
     }
   ]
 }
