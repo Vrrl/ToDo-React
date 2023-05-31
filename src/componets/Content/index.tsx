@@ -6,12 +6,15 @@ import { TodoList } from "../TodoList";
 import useToDoContext from "../../hooks/todoContext";
 import { v4 as uuidv4 } from "uuid";
 import { api } from "../../api/api";
+import { Alert } from "../Alert";
 
 
 export const Content = () => {
   
   const { taskListState, setTaskListState } = useToDoContext();
   const [description, setDescription] = useState<string>("");
+  const [alert, setAlert] = useState<boolean>(false);
+
 
 
   const addTaskOnList = () => {
@@ -27,6 +30,8 @@ export const Content = () => {
       .post("task", newTask)
       .then(() => {
         setTaskListState((currentValue) => [...currentValue, newTask]);
+        setAlert(true)
+        setTimeout(() => setAlert(false),2000);
       })
       .finally(() => {
         setDescription("");
@@ -112,6 +117,7 @@ export const Content = () => {
 
         {!taskListState.length ? <NoContent /> : <TodoList list={taskListState} onDelete={removeTaskOnDelete} changeStatusCheckBox={changeStatusCheckBox}/>}
       </main>
+      {alert ? <Alert message="Task Criada com sucesso!"/> : ''}
     </section>
   );
 };

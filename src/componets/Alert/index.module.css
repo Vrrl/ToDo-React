@@ -1,0 +1,11 @@
+.alert{
+  position: fixed;
+  padding: 16px 18px;
+  margin: 16px;
+  width: 250px;
+  background-color: #29df47;
+  border-radius: 10px;
+  border: 1px solid #117221;
+  left: 0;
+  bottom: 0;
+}
