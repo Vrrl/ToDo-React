@@ -111,7 +111,7 @@ export const Content = () => {
           </article>
           <article className={style.tasks_container}>
             <p className={style.tasks_done}>Concluidas</p>
-            <span className={style.span_value}>0</span>
+            <span className={style.span_value}>{taskListState.filter(task => task.isDone).length}</span>
           </article>
         </article>
 
