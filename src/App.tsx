@@ -16,7 +16,7 @@ export const App = () => {
 
     return (
         <div className={styles.main}>
-            <div className={styles.subDiv} onClick={() => navigate('/list')}>
+            <div className={styles.subDiv} onClick={() => navigate('/to-do')}>
                 <p className={styles.text}>ToDo List</p>
                 <img src={preview} className={styles.image}/>
             </div>

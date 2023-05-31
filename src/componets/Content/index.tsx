@@ -3,7 +3,6 @@ import Plus from "../../assets/plus.svg";
 import { NoContent } from "../NoContent";
 import { useEffect, useState } from "react";
 import { TodoList } from "../TodoList";
-import { Task } from "../../model/Task";
 import useToDoContext from "../../hooks/todoContext";
 import { v4 as uuidv4 } from "uuid";
 import { api } from "../../api/api";
@@ -16,6 +15,8 @@ export const Content = () => {
 
 
   const addTaskOnList = () => {
+    if (!description)
+      return;
     const newTask = {
       id: uuidv4(),
       description,
